@@ -10,9 +10,13 @@ const initialState = {
   questions: [],
   status: "error", // "loading", "error", "ready", "active", "finished"
   index: 0,
+  answer: null,
+  points: 0,
 };
 
 function reducer(state, action) {
+  const question = state.questions.at(state.index);
+
   switch (action.type) {
     case "dataReceived":
       return {
@@ -33,6 +37,16 @@ function reducer(state, action) {
         status: "active",
       };
 
+    case "newAnswer":
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          action.payload === question.correctOption
+            ? state.points + question.points
+            : state.points,
+      };
+
     default:
       throw new Error("Action unknown");
   }
@@ -40,7 +54,7 @@ function reducer(state, action) {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { questions, status, index } = state;
+  const { questions, status, index, answer } = state;
   const numQuestions = questions.length;
 
   useEffect(() => {
@@ -60,7 +74,13 @@ export default function App() {
         {status === "ready" && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
-        {status === "active" && <Questions question={questions[index]} />}
+        {status === "active" && (
+          <Questions
+            dispatch={dispatch}
+            answer={answer}
+            question={questions[index]}
+          />
+        )}
       </Main>
     </div>
   );
