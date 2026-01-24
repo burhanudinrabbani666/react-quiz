@@ -1,6 +1,3 @@
-# DISPLAYING A QUESTIONS
-
-```jsx
 import Options from "./option";
 
 function Questions({ question }) {
@@ -13,6 +10,3 @@ function Questions({ question }) {
 }
 
 export default Questions;
-```
-
-[Next: Handling new answer](./09-handling-new-answer.md)

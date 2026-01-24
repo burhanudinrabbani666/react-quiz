@@ -1,14 +1,15 @@
 import { useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import Main from "./components/main";
-import Loader from "./components/Loader";
-import Error from "./components/Error";
+import Loader from "./components/helper/Loader.jsx";
+import Error from "./components/helper/Error.jsx";
 import StartScreen from "./components/start";
-import Questions from "./components/questions";
+import Questions from "./components/questions/questions.jsx";
 
 const initialState = {
-  question: [],
+  questions: [],
   status: "error", // "loading", "error", "ready", "active", "finished"
+  index: 0,
 };
 
 function reducer(state, action) {
@@ -16,7 +17,7 @@ function reducer(state, action) {
     case "dataReceived":
       return {
         ...state,
-        question: action.payload,
+        questions: action.payload,
         status: "ready",
       };
 
@@ -39,8 +40,8 @@ function reducer(state, action) {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { question, status } = state;
-  const numQuestions = question.length;
+  const { questions, status, index } = state;
+  const numQuestions = questions.length;
 
   useEffect(() => {
     fetch("http://localhost:4000/questions")
@@ -50,19 +51,17 @@ export default function App() {
   }, []);
 
   return (
-    <div>
-      <div className="app">
-        <Header />
+    <div className="app">
+      <Header />
 
-        <Main>
-          {status === "loading" && <Loader />}
-          {status === "error" && <Error />}
-          {status === "ready" && (
-            <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
-          )}
-          {status === "active" && <Questions />}
-        </Main>
-      </div>
+      <Main>
+        {status === "loading" && <Loader />}
+        {status === "error" && <Error />}
+        {status === "ready" && (
+          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+        )}
+        {status === "active" && <Questions question={questions[index]} />}
+      </Main>
     </div>
   );
 }
