@@ -1,8 +1,3 @@
-# DISPLAYING PROGRESS
-
-displaying progress with progress html element
-
-```jsx
 function Progress({ index, numQuestion, points, maxPossiablePoint, answer }) {
   return (
     <header className="progress">
@@ -18,6 +13,3 @@ function Progress({ index, numQuestion, points, maxPossiablePoint, answer }) {
 }
 
 export default Progress;
-```
-
-[Next: Finishing quiz](./12-finishing-quiz.md)
