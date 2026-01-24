@@ -1,8 +1,3 @@
-# FINISHING THE QUIZ
-
-`/finish-screen.jsx`
-
-```jsx
 function FinishScreen({ points, maxPossiablePoint, highScore }) {
   const percenteage = (points / maxPossiablePoint) * 100;
 
@@ -27,6 +22,3 @@ function FinishScreen({ points, maxPossiablePoint, highScore }) {
 }
 
 export default FinishScreen;
-```
-
-[Next: Restaring quiz](./13-restaring-quiz.md)
