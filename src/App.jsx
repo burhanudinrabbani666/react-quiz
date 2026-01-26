@@ -88,12 +88,11 @@ function reducer(state, action) {
         status: state.secondsRemaining === 0 ? "finished" : state.status,
       };
 
-    case "setDifficulty": {
+    case "setDifficulty":
       return {
         ...state,
         difficulty: action.payload,
       };
-    }
 
     default:
       throw new Error("Action unknown");
