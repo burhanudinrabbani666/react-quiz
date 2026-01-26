@@ -21,7 +21,7 @@ const initialState = {
   points: 0,
   highScore: 0,
   secondsRemaining: null,
-  difficulty: null,
+  difficulty: "",
 };
 
 function reducer(state, action) {
@@ -44,14 +44,6 @@ function reducer(state, action) {
     case "start":
       return {
         ...state,
-        questions:
-          state.difficulty === "easy"
-            ? state.questions.slice(0, 5)
-            : state.difficulty === "medium"
-              ? state.questions.slice(5, 10)
-              : state.difficulty === "hard"
-                ? state.questions.slice(10, 15)
-                : state.questions,
         status: "active",
         secondsRemaining: state.questions.length * SEC_PER_QUESTION,
       };
@@ -84,8 +76,8 @@ function reducer(state, action) {
     case "restart":
       return {
         ...initialState,
-        status: "ready",
         questions: state.questions,
+        status: "ready",
         highScore: state.highScore,
       };
 
@@ -118,9 +110,20 @@ export default function App() {
     points,
     highScore,
     secondsRemaining,
+    difficulty,
   } = state;
-  const numQuestions = questions.length;
-  const maxPossiablePoint = questions.reduce(
+
+  const filteredQuestions =
+    difficulty === "easy"
+      ? questions.slice(0, 5)
+      : difficulty === "medium"
+        ? questions.slice(5, 10)
+        : difficulty === "hard"
+          ? state.questions.slice(10, 15)
+          : questions;
+
+  const numQuestions = filteredQuestions.length;
+  const maxPossiablePoint = filteredQuestions.reduce(
     (prev, curr) => prev + curr.points,
     0,
   );
@@ -153,7 +156,7 @@ export default function App() {
             <Questions
               dispatch={dispatch}
               answer={answer}
-              question={questions[index]}
+              question={filteredQuestions[index]}
             />
             <Footer>
               <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
