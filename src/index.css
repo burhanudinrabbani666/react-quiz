@@ -115,6 +115,23 @@ progress {
   border-radius: 100px;
 }
 
+.start-btn-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.start-btn-container select {
+  background: none;
+  font-size: 2rem;
+  color: #f1f3f5;
+  border: 1px solid transparent;
+  padding: 0 2rem;
+}
+
+.start-btn-container select option {
+  color: #343a40;
+}
+
 .btn {
   display: block;
   font-family: inherit;

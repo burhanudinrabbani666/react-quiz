@@ -21,6 +21,7 @@ const initialState = {
   points: 0,
   highScore: 0,
   secondsRemaining: null,
+  difficulty: null,
 };
 
 function reducer(state, action) {
@@ -43,6 +44,14 @@ function reducer(state, action) {
     case "start":
       return {
         ...state,
+        questions:
+          state.difficulty === "easy"
+            ? state.questions.slice(0, 5)
+            : state.difficulty === "medium"
+              ? state.questions.slice(5, 10)
+              : state.difficulty === "hard"
+                ? state.questions.slice(10, 15)
+                : state.questions,
         status: "active",
         secondsRemaining: state.questions.length * SEC_PER_QUESTION,
       };
@@ -67,7 +76,7 @@ function reducer(state, action) {
     case "finish":
       return {
         ...state,
-        status: "finish",
+        status: "finished",
         highScore:
           state.points > state.highScore ? state.points : state.highScore,
       };
@@ -86,6 +95,13 @@ function reducer(state, action) {
         secondsRemaining: state.secondsRemaining - 1,
         status: state.secondsRemaining === 0 ? "finished" : state.status,
       };
+
+    case "setDifficulty": {
+      return {
+        ...state,
+        difficulty: action.payload,
+      };
+    }
 
     default:
       throw new Error("Action unknown");
