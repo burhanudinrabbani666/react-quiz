@@ -1,17 +1,3 @@
-# SETTING TIMER WITH USE EFFECT
-
-create timer components and new state
-
-```jsx
-    case "tick":
-      return {
-        ...state,
-        secondsRemaining: state.secondsRemaining - 1,
-        status: state.secondsRemaining === 0 ? "finished" : state.status,
-      };
-
-
-
 import { useEffect } from "react";
 
 function Timer({ dispatch, secondsRemaining }) {
@@ -37,6 +23,3 @@ function Timer({ dispatch, secondsRemaining }) {
 }
 
 export default Timer;
-```
-
-[Next: Section summary](./15-section-summary.md)
