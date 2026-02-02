@@ -1,13 +1,6 @@
-import { useQuestions } from "../../context/QuizProvider";
-
-function Options() {
-  const { dispatch, answer, filteredQuestions, index } = useQuestions();
-
-  const question = filteredQuestions[index];
-
+function Options({ question, dispatch, answer }) {
   const hasAnswer = answer !== null;
 
-  console.log(answer);
   return (
     <div className="options">
       {question.options.map((option, index) => (

@@ -1,10 +1,14 @@
+import { useQuestions } from "../../context/QuizProvider";
 import Options from "./option";
 
-function Questions({ question, dispatch, answer }) {
+function Questions() {
+  const { filteredQuestions, index } = useQuestions();
+  const question = filteredQuestions[index];
+
   return (
     <div>
       <h4>{question.question}</h4>
-      <Options question={question} dispatch={dispatch} answer={answer} />
+      <Options />
     </div>
   );
 }

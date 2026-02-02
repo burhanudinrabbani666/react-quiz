@@ -1,8 +1,4 @@
-import { useQuestions } from "../context/QuizProvider";
-
-function FinishScreen() {
-  const { points, maxPossiablePoint, highScore, dispatch } = useQuestions();
-
+function FinishScreen({ points, maxPossiablePoint, highScore, dispatch }) {
   const percenteage = (points / maxPossiablePoint) * 100;
 
   let emoji;
